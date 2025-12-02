@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cari Buku - Litopia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📚 Litopia</h1>
+                <p>Tracker Buku Pribadi Anda</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="Cari_Buku.html" class="active">Cari Buku</a></li>
+                    <li><a href="Perpustakaan_Saya.html">Perpustakaan Saya</a></li>
+                    <li><a href="Ulasan.html">Ulasan</a></li>
+                    <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                </ul>
+            </nav>
+            <div class="search-cart">
+                <span style="color: white; display: flex; align-items: center; gap: 0.5rem;">
+                    📚 <span id="libraryCount" class="library-btn">0</span> Buku
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Beranda</a> > <span>Cari Buku</span>
+            </nav>
+        </div>
+    </section>
+
+    <section class="catalog-section">
+        <div class="container">
+            <div class="catalog-layout">
+                <aside class="filter-sidebar">
+                    <div class="filter-header">
+                        <h3>🔍 Filter Pencarian</h3>
+                        <button class="btn-reset-filter" id="resetFilter">Reset</button>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Kata Kunci</label>
+                        <input type="text" id="filterKeyword" class="filter-input" placeholder="Cari judul atau penulis...">
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Urutkan Berdasarkan</label>
+                        <select id="filterSort" class="filter-select">
+                            <option value="">Pilih Urutan</option>
+                            <option value="newest">Terbaru</option>
+                            <option value="oldest">Terlama</option>
+                            <option value="titleAZ">Judul (A-Z)</option>
+                            <option value="titleZA">Judul (Z-A)</option>
+                            <option value="ratingHighLow">Rating (Tinggi-Rendah)</option>
+                            <option value="ratingLowHigh">Rating (Rendah-Tinggi)</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Genre</label>
+                        <div class="filter-checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="fiksi" class="filter-checkbox">
+                                <span>Fiksi</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="nonfiksi" class="filter-checkbox">
+                                <span>Non-Fiksi</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="romance" class="filter-checkbox">
+                                <span>Romance</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="thriller" class="filter-checkbox">
+                                <span>Thriller</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="selfhelp" class="filter-checkbox">
+                                <span>Self Help</span>
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="genre" value="bisnis" class="filter-checkbox">
+                                <span>Bisnis</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Tahun Terbit</label>
+                        <div class="filter-year-range">
+                            <input type="number" id="filterYearFrom" class="filter-input-small" placeholder="Dari" min="1900" max="2024">
+                            <span class="year-separator">-</span>
+                            <input type="number" id="filterYearTo" class="filter-input-small" placeholder="Sampai" min="1900" max="2024">
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Jumlah Halaman</label>
+                        <div class="filter-page-range">
+                            <input type="number" id="filterPageFrom" class="filter-input-small" placeholder="Min" min="0">
+                            <span class="year-separator">-</span>
+                            <input type="number" id="filterPageTo" class="filter-input-small" placeholder="Max" min="0">
+                        </div>
+                    </div>
+
+                    <button class="btn-apply-filter" id="applyFilter">Terapkan Filter</button>
+                </aside>
+
+                <main class="catalog-main">
+                    <div class="catalog-header">
+                        <h2 class="section-title">Cari Buku</h2>
+                        <div class="catalog-info">
+                            <p id="bookCount">Menampilkan <strong>0</strong> buku</p>
+                        </div>
+                    </div>
+
+                    <div class="books-grid" id="booksContainer">
+                        <div class="loading-state" style="grid-column: 1/-1; text-align: center; padding: 4rem;">
+                            <div class="loading"></div>
+                            <p style="margin-top: 1rem; color: #666;">Memuat data buku...</p>
+                        </div>
+                    </div>
+
+                    <div class="pagination" id="pagination">
+                        <button class="page-btn" id="prevPage">← Sebelumnya</button>
+                        <div class="page-numbers" id="pageNumbers">
+                            <button class="page-number active">1</button>
+                        </div>
+                        <button class="page-btn" id="nextPage">Selanjutnya →</button>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Litopia Book Tracker</h3>
+                    <p>Aplikasi pelacak buku pribadi untuk membantu Anda mengelola dan melacak progres bacaan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Fitur</h4>
+                    <ul>
+                        <li><a href="Cari_Buku.html">Pencarian Buku</a></li>
+                        <li><a href="Perpustakaan_Saya.html">Perpustakaan Pribadi</a></li>
+                        <li><a href="Ulasan.html">Ulasan Buku</a></li>
+                        <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tentang</h4>
+                    <p>Data buku dari Google Books API</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Litopia Book Tracker. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+            document.getElementById('libraryCount').textContent = library.length;
+        });
+    </script>
+</body>
+</html>

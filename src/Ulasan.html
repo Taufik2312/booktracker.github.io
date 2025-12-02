@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ulasan Buku - Litopia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📚 Litopia</h1>
+                <p>Tracker Buku Pribadi Anda</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="Cari_Buku.html">Cari Buku</a></li>
+                    <li><a href="Perpustakaan_Saya.html">Perpustakaan Saya</a></li>
+                    <li><a href="Ulasan.html" class="active">Ulasan</a></li>
+                    <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                </ul>
+            </nav>
+            <div class="search-cart">
+                <span style="color: white; display: flex; align-items: center; gap: 0.5rem;">
+                    ⭐ <span id="reviewCount">0</span> Ulasan
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Beranda</a> > <span>Ulasan</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Write Review Section -->
+    <section class="write-review" style="background: #f8f9fa; padding: 2rem 0;">
+        <div class="container">
+            <h2 class="section-title">✍️ Tulis Ulasan Baru</h2>
+            <div style="max-width: 800px; margin: 0 auto; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <form id="reviewForm">
+                    <div class="filter-group">
+                        <label class="filter-label">Pilih Buku</label>
+                        <select id="bookSelect" class="filter-select" required>
+                            <option value="">-- Pilih buku dari perpustakaan --</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Rating</label>
+                        <div class="rating-input" style="font-size: 2rem; cursor: pointer;">
+                            <span class="star" data-rating="1">☆</span>
+                            <span class="star" data-rating="2">☆</span>
+                            <span class="star" data-rating="3">☆</span>
+                            <span class="star" data-rating="4">☆</span>
+                            <span class="star" data-rating="5">☆</span>
+                        </div>
+                        <input type="hidden" id="ratingValue" value="0" required>
+                    </div>
+
+                    <div class="filter-group">
+                        <label class="filter-label">Ulasan Anda</label>
+                        <textarea id="reviewText" class="filter-input" rows="6" placeholder="Bagikan pendapat Anda tentang buku ini..." required style="width: 100%; padding: 1rem; resize: vertical;"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-apply-filter" style="width: 100%;">Posting Ulasan</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews List -->
+    <section class="reviews-list" style="padding: 3rem 0;">
+        <div class="container">
+            <h2 class="section-title">📖 Ulasan Saya</h2>
+            <div id="reviewsContainer" style="max-width: 900px; margin: 0 auto;">
+                <div class="empty-state" style="text-align: center; padding: 3rem;">
+                    <h3>📝 Belum Ada Ulasan</h3>
+                    <p>Mulai tulis ulasan untuk buku yang sudah Anda baca!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Litopia Book Tracker</h3>
+                    <p>Aplikasi pelacak buku pribadi untuk membantu Anda mengelola dan melacak progres bacaan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Fitur</h4>
+                    <ul>
+                        <li><a href="Cari_Buku.html">Pencarian Buku</a></li>
+                        <li><a href="Perpustakaan_Saya.html">Perpustakaan Pribadi</a></li>
+                        <li><a href="Ulasan.html">Ulasan Buku</a></li>
+                        <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tentang</h4>
+                    <p>Data buku dari Google Books API</p>
+                    <p>Dibuat dengan ❤️ untuk para pembaca</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Litopia Book Tracker. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let selectedRating = 0;
+
+        // Load book options
+        function loadBookOptions() {
+            const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+            const select = document.getElementById('bookSelect');
+            
+            // Filter only read or reading books
+            const readableBooks = library.filter(b => b.status === 'finished' || b.status === 'reading');
+            
+            readableBooks.forEach(book => {
+                const option = document.createElement('option');
+                option.value = book.id;
+                option.textContent = `${book.title} - ${book.author}`;
+                select.appendChild(option);
+            });
+        }
+
+        // Setup rating stars
+        function setupRatingStars() {
+            const stars = document.querySelectorAll('.star');
+            
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    selectedRating = parseInt(this.dataset.rating);
+                    document.getElementById('ratingValue').value = selectedRating;
+                    
+                    stars.forEach(s => {
+                        if (parseInt(s.dataset.rating) <= selectedRating) {
+                            s.textContent = '★';
+                            s.style.color = '#f39c12';
+                        } else {
+                            s.textContent = '☆';
+                            s.style.color = '#ddd';
+                        }
+                    });
+                });
+
+                star.addEventListener('mouseenter', function() {
+                    const rating = parseInt(this.dataset.rating);
+                    stars.forEach(s => {
+                        if (parseInt(s.dataset.rating) <= rating) {
+                            s.textContent = '★';
+                            s.style.color = '#f39c12';
+                        } else {
+                            s.textContent = '☆';
+                            s.style.color = '#ddd';
+                        }
+                    });
+                });
+            });
+
+            document.querySelector('.rating-input').addEventListener('mouseleave', function() {
+                stars.forEach(s => {
+                    if (parseInt(s.dataset.rating) <= selectedRating) {
+                        s.textContent = '★';
+                        s.style.color = '#f39c12';
+                    } else {
+                        s.textContent = '☆';
+                        s.style.color = '#ddd';
+                    }
+                });
+            });
+        }
+
+        // Submit review
+        document.getElementById('reviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const bookId = document.getElementById('bookSelect').value;
+            const rating = parseInt(document.getElementById('ratingValue').value);
+            const text = document.getElementById('reviewText').value;
+
+            if (!bookId || rating === 0 || !text.trim()) {
+                alert('Mohon lengkapi semua field!');
+                return;
+            }
+
+            const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+            const book = library.find(b => b.id === bookId);
+
+            if (!book) {
+                alert('Buku tidak ditemukan!');
+                return;
+            }
+
+            const reviews = JSON.parse(localStorage.getItem('litopiaReviews')) || [];
+            
+            reviews.push({
+                id: Date.now(),
+                bookId: bookId,
+                bookTitle: book.title,
+                bookAuthor: book.author,
+                bookImage: book.image,
+                rating: rating,
+                text: text,
+                date: new Date().toISOString()
+            });
+
+            localStorage.setItem('litopiaReviews', JSON.stringify(reviews));
+            
+            alert('Ulasan berhasil diposting!');
+            
+            // Reset form
+            document.getElementById('reviewForm').reset();
+            selectedRating = 0;
+            document.querySelectorAll('.star').forEach(s => {
+                s.textContent = '☆';
+                s.style.color = '#ddd';
+            });
+            
+            loadReviews();
+        });
+
+        // Load reviews
+        function loadReviews() {
+            const reviews = JSON.parse(localStorage.getItem('litopiaReviews')) || [];
+            const container = document.getElementById('reviewsContainer');
+            
+            document.getElementById('reviewCount').textContent = reviews.length;
+
+            if (reviews.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="text-align: center; padding: 3rem;">
+                        <h3>📝 Belum Ada Ulasan</h3>
+                        <p>Mulai tulis ulasan untuk buku yang sudah Anda baca!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Sort by date (newest first)
+            reviews.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+            container.innerHTML = reviews.map((review, index) => {
+                const date = new Date(review.date).toLocaleDateString('id-ID', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                });
+                
+                const stars = '⭐'.repeat(review.rating);
+
+                return `
+                    <div class="review-card" style="background: white; padding: 1.5rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-bottom: 1.5rem;">
+                        <div style="display: flex; gap: 1.5rem;">
+                            <img src="${review.bookImage}" alt="${review.bookTitle}" 
+                                 style="width: 100px; height: 150px; object-fit: cover; border-radius: 10px;"
+                                 onerror="this.src='https://via.placeholder.com/100x150?text=No+Image'">
+                            <div style="flex: 1;">
+                                <h3 style="color: #333; margin-bottom: 0.5rem;">${review.bookTitle}</h3>
+                                <p style="color: #666; font-style: italic; margin-bottom: 0.5rem;">${review.bookAuthor}</p>
+                                <div style="margin-bottom: 1rem;">
+                                    <span style="font-size: 1.2rem;">${stars}</span>
+                                    <span style="color: #999; margin-left: 0.5rem; font-size: 0.9rem;">${date}</span>
+                                </div>
+                                <p style="color: #555; line-height: 1.6;">${review.text}</p>
+                                <button onclick="deleteReview(${index})" style="margin-top: 1rem; background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer;">
+                                    Hapus Ulasan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Delete review
+        function deleteReview(index) {
+            if (!confirm('Yakin ingin menghapus ulasan ini?')) return;
+            
+            const reviews = JSON.parse(localStorage.getItem('litopiaReviews')) || [];
+            reviews.splice(index, 1);
+            localStorage.setItem('litopiaReviews', JSON.stringify(reviews));
+            
+            loadReviews();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBookOptions();
+            setupRatingStars();
+            loadReviews();
+        });
+    </script>
+</body>
+</html>

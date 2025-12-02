@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perpustakaan Saya - Litopia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📚 Litopia</h1>
+                <p>Tracker Buku Pribadi Anda</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="Cari_Buku.html">Cari Buku</a></li>
+                    <li><a href="Perpustakaan_Saya.html" class="active">Perpustakaan Saya</a></li>
+                    <li><a href="Ulasan.html">Ulasan</a></li>
+                    <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                </ul>
+            </nav>
+            <div class="search-cart">
+                <span style="color: white; display: flex; align-items: center; gap: 0.5rem;">
+                    📚 <span id="totalBooks">0</span> Buku
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Beranda</a> > <span>Perpustakaan Saya</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Filter Status -->
+    <section class="genre-filters">
+        <div class="container">
+            <h2 class="section-title">Perpustakaan Saya</h2>
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-status="all">Semua Buku</button>
+                <button class="filter-btn" data-status="reading">📖 Sedang Dibaca</button>
+                <button class="filter-btn" data-status="finished">✅ Selesai Dibaca</button>
+                <button class="filter-btn" data-status="want-to-read">📚 Ingin Dibaca</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Library Books -->
+    <section class="books-by-genre">
+        <div class="container">
+            <div class="books-grid" id="libraryContainer">
+                <div class="empty-state" style="grid-column: 1/-1;">
+                    <h3>📚 Perpustakaan Kosong</h3>
+                    <p>Belum ada buku di perpustakaan Anda. Mulai tambahkan buku favorit!</p>
+                    <a href="Cari_Buku.html" class="btn-primary" style="margin-top: 1rem;">Cari Buku</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Litopia Book Tracker</h3>
+                    <p>Aplikasi pelacak buku pribadi untuk membantu Anda mengelola dan melacak progres bacaan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Fitur</h4>
+                    <ul>
+                        <li><a href="Cari_Buku.html">Pencarian Buku</a></li>
+                        <li><a href="Perpustakaan_Saya.html">Perpustakaan Pribadi</a></li>
+                        <li><a href="Ulasan.html">Ulasan Buku</a></li>
+                        <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tentang</h4>
+                    <p>Data buku dari Google Books API</p>
+                    <p>Dibuat dengan ❤️ untuk para pembaca</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Litopia Book Tracker. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let currentStatus = 'all';
+
+        // Load library
+        function loadLibrary() {
+            const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+            const container = document.getElementById('libraryContainer');
+            
+            document.getElementById('totalBooks').textContent = library.length;
+
+            // Filter by status
+            let filtered = library;
+            if (currentStatus !== 'all') {
+                filtered = library.filter(book => book.status === currentStatus);
+            }
+
+            if (filtered.length === 0) {
+                const message = currentStatus === 'all' 
+                    ? 'Perpustakaan Kosong' 
+                    : `Tidak ada buku dengan status "${getStatusText(currentStatus)}"`;
+                
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <h3>📚 ${message}</h3>
+                        <p>Mulai tambahkan buku dari pencarian!</p>
+                        <a href="Cari_Buku.html" class="btn-primary" style="margin-top: 1rem;">Cari Buku</a>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = filtered.map((book, index) => `
+                <div class="book-card">
+                    <img src="${book.image}" alt="${book.title}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
+                    <div class="book-info">
+                        <h3>${book.title}</h3>
+                        <p class="author">${book.author}</p>
+                        <p class="genre">${book.genre}</p>
+                        
+                        <!-- Status Dropdown -->
+                        <div style="margin: 1rem 0;">
+                            <select class="filter-select" onchange="changeStatus(${index}, this.value)" style="width: 100%; padding: 0.5rem;">
+                                <option value="want-to-read" ${book.status === 'want-to-read' ? 'selected' : ''}>📚 Ingin Dibaca</option>
+                                <option value="reading" ${book.status === 'reading' ? 'selected' : ''}>📖 Sedang Dibaca</option>
+                                <option value="finished" ${book.status === 'finished' ? 'selected' : ''}>✅ Selesai</option>
+                            </select>
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem;">
+                            <button class="btn-secondary" onclick="removeBook(${index})" style="flex: 1; background: #e74c3c; color: white; border: none;">
+                                Hapus
+                            </button>
+                            <a href="Ulasan.html?book=${encodeURIComponent(book.id)}" class="btn-secondary" style="flex: 1; text-align: center; text-decoration: none;">
+                                Ulasan
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Change book status
+        function changeStatus(index, newStatus) {
+            const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+            
+            if (currentStatus !== 'all') {
+                // Adjust index for filtered view
+                const allLibrary = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+                const filtered = allLibrary.filter(book => book.status === currentStatus);
+                const bookId = filtered[index].id;
+                const realIndex = allLibrary.findIndex(book => book.id === bookId);
+                library[realIndex].status = newStatus;
+            } else {
+                library[index].status = newStatus;
+            }
+            
+            localStorage.setItem('litopiaLibrary', JSON.stringify(library));
+            loadLibrary();
+        }
+
+        // Remove book from library
+        function removeBook(index) {
+            if (!confirm('Yakin ingin menghapus buku ini dari perpustakaan?')) return;
+            
+            const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+            
+            if (currentStatus !== 'all') {
+                const allLibrary = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+                const filtered = allLibrary.filter(book => book.status === currentStatus);
+                const bookId = filtered[index].id;
+                const realIndex = allLibrary.findIndex(book => book.id === bookId);
+                allLibrary.splice(realIndex, 1);
+                localStorage.setItem('litopiaLibrary', JSON.stringify(allLibrary));
+            } else {
+                library.splice(index, 1);
+                localStorage.setItem('litopiaLibrary', JSON.stringify(library));
+            }
+            
+            loadLibrary();
+        }
+
+        // Get status text
+        function getStatusText(status) {
+            switch(status) {
+                case 'reading': return 'Sedang Dibaca';
+                case 'finished': return 'Selesai Dibaca';
+                case 'want-to-read': return 'Ingin Dibaca';
+                default: return 'Semua';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLibrary();
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentStatus = this.dataset.status;
+                    loadLibrary();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

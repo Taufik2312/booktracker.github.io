@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Litopia - Book Tracker Anda</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📚 Litopia</h1>
+                <p>Tracker Buku Pribadi Anda</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html" class="active">Beranda</a></li>
+                    <li><a href="Cari_Buku.html">Cari Buku</a></li>
+                    <li><a href="Perpustakaan_Saya.html">Perpustakaan Saya</a></li>
+                    <li><a href="Ulasan.html">Ulasan</a></li>
+                    <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                </ul>
+            </nav>
+            <div class="search-cart">
+                <input type="search" placeholder="Cari buku..." id="quickSearch">
+                <button class="search-btn" onclick="quickSearchRedirect()">🔍</button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Kelola Bacaan Anda dengan Mudah</h2>
+                <p>Lacak buku yang sudah dibaca, sedang dibaca, dan ingin dibaca. Semua dalam satu tempat!</p>
+                <a href="Cari_Buku.html" class="btn-primary">Mulai Mencari Buku</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="quick-stats">
+        <div class="container">
+            <h2 class="section-title" style="color: white; margin-bottom: 2rem;">Statistik Bacaan Anda</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3 id="statTotal">0</h3>
+                    <p>Total Buku</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="statReading">0</h3>
+                    <p>Sedang Dibaca</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="statFinished">0</h3>
+                    <p>Sudah Selesai</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="statWishlist">0</h3>
+                    <p>Ingin Dibaca</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Access Features -->
+    <section class="quick-access">
+        <div class="container">
+            <h2 class="section-title">Fitur Utama</h2>
+            <div class="quick-access-grid">
+                <a href="Cari_Buku.html" class="quick-access-card">
+                    <div class="icon">🔍</div>
+                    <h3>Cari Buku</h3>
+                    <p>Temukan buku favorit Anda dari jutaan koleksi Google Books</p>
+                </a>
+                <a href="Perpustakaan_Saya.html" class="quick-access-card">
+                    <div class="icon">📚</div>
+                    <h3>Perpustakaan Saya</h3>
+                    <p>Kelola koleksi buku pribadi dengan status bacaan</p>
+                </a>
+                <a href="Ulasan.html" class="quick-access-card">
+                    <div class="icon">⭐</div>
+                    <h3>Tulis Ulasan</h3>
+                    <p>Bagikan pendapat Anda tentang buku yang sudah dibaca</p>
+                </a>
+                <a href="Rekomendasi.html" class="quick-access-card">
+                    <div class="icon">✨</div>
+                    <h3>Rekomendasi</h3>
+                    <p>Dapatkan saran buku berdasarkan preferensi Anda</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Activity -->
+    <section class="popular-books">
+        <div class="container">
+            <h2 class="section-title">Aktivitas Terakhir</h2>
+            <div id="recentActivity" class="books-grid">
+                <div class="empty-state" style="grid-column: 1/-1; text-align: center; padding: 3rem;">
+                    <h3>📖 Belum Ada Aktivitas</h3>
+                    <p>Mulai tambahkan buku ke perpustakaan Anda!</p>
+                    <a href="Cari_Buku.html" class="btn-primary" style="margin-top: 1rem;">Cari Buku Sekarang</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reading Goals -->
+    <section class="reading-goals" style="background: #f8f9fa; padding: 3rem 0;">
+        <div class="container">
+            <h2 class="section-title">Target Bacaan 2025</h2>
+            <div class="goal-container" style="max-width: 600px; margin: 0 auto; background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                <div class="goal-progress">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <span style="font-weight: bold; color: #333;">Progress:</span>
+                        <span style="font-weight: bold; color: #667eea;" id="goalProgress">0 dari 12 buku</span>
+                    </div>
+                    <div style="width: 100%; height: 30px; background: #e0e0e0; border-radius: 15px; overflow: hidden;">
+                        <div id="goalBar" style="height: 100%; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); width: 0%; transition: width 0.5s ease;"></div>
+                    </div>
+                    <p style="text-align: center; margin-top: 1.5rem; color: #666;">
+                        <button class="btn-secondary" onclick="setReadingGoal()" style="margin-top: 0.5rem;">Atur Target Bacaan</button>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Litopia Book Tracker</h3>
+                    <p>Aplikasi pelacak buku pribadi untuk membantu Anda mengelola dan melacak progres bacaan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Fitur</h4>
+                    <ul>
+                        <li><a href="Cari_Buku.html">Pencarian Buku</a></li>
+                        <li><a href="Perpustakaan_Saya.html">Perpustakaan Pribadi</a></li>
+                        <li><a href="Ulasan.html">Ulasan Buku</a></li>
+                        <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tentang</h4>
+                    <p>Data buku dari Google Books API</p>
+                    <p>Dibuat dengan ❤️ untuk para pembaca</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Litopia Book Tracker. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Load statistics from localStorage
+        function loadStatistics() {
+            try {
+                const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+                
+                const total = library.length;
+                const reading = library.filter(b => b.status === 'reading').length;
+                const finished = library.filter(b => b.status === 'finished').length;
+                const wishlist = library.filter(b => b.status === 'want-to-read').length;
+
+                document.getElementById('statTotal').textContent = total;
+                document.getElementById('statReading').textContent = reading;
+                document.getElementById('statFinished').textContent = finished;
+                document.getElementById('statWishlist').textContent = wishlist;
+
+                // Update reading goal
+                updateReadingGoal(finished);
+
+                // Load recent activity
+                loadRecentActivity(library);
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+            }
+        }
+
+        // Update reading goal progress
+        function updateReadingGoal(finishedCount) {
+            const goal = parseInt(localStorage.getItem('readingGoal')) || 12;
+            const percentage = Math.min((finishedCount / goal) * 100, 100);
+            
+            document.getElementById('goalProgress').textContent = `${finishedCount} dari ${goal} buku`;
+            document.getElementById('goalBar').style.width = percentage + '%';
+        }
+        // Set reading goal
+        function setReadingGoal() {
+            const currentGoal = localStorage.getItem('readingGoal') || 12;
+            const newGoal = prompt('Berapa buku yang ingin Anda baca tahun ini?', currentGoal);
+            
+            if (newGoal && !isNaN(newGoal) && newGoal > 0) {
+                localStorage.setItem('readingGoal', newGoal);
+                loadStatistics();
+            }
+        }
+        // Load recent activity
+        function loadRecentActivity(library) {
+            const recentActivity = document.getElementById('recentActivity');
+            
+            if (library.length === 0) {
+                return;
+            }
+
+            // Get 6 most recent books
+            const recent = library.slice(-6).reverse();
+
+            recentActivity.innerHTML = recent.map(book => `
+                <div class="book-card">
+                    <img src="${book.image}" alt="${book.title}" onerror="this.src='https://via.placeholder.com/300x400?text=No+Image'">
+                    <div class="book-info">
+                        <h3>${book.title}</h3>
+                        <p class="author">${book.author}</p>
+                        <p class="genre">${book.genre}</p>
+                        <div class="book-status" style="margin-top: 0.5rem; padding: 0.3rem 0.8rem; background: ${getStatusColor(book.status)}; color: white; border-radius: 15px; font-size: 0.8rem; display: inline-block;">
+                            ${getStatusText(book.status)}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Get status color
+        function getStatusColor(status) {
+            switch(status) {
+                case 'reading': return '#3498db';
+                case 'finished': return '#27ae60';
+                case 'want-to-read': return '#f39c12';
+                default: return '#95a5a6';
+            }
+        }
+
+        // Get status text
+        function getStatusText(status) {
+            switch(status) {
+                case 'reading': return '📖 Sedang Dibaca';
+                case 'finished': return '✅ Selesai';
+                case 'want-to-read': return '📚 Ingin Dibaca';
+                default: return 'Tidak Diketahui';
+            }
+        }
+
+        // Quick search redirect
+        function quickSearchRedirect() {
+            const query = document.getElementById('quickSearch').value;
+            window.location.href = `Cari_Buku.html?q=${encodeURIComponent(query)}`;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', loadStatistics);
+    </script>
+</body>
+</html>

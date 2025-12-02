@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekomendasi - Litopia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1>📚 Litopia</h1>
+                <p>Tracker Buku Pribadi Anda</p>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="index.html">Beranda</a></li>
+                    <li><a href="Cari_Buku.html">Cari Buku</a></li>
+                    <li><a href="Perpustakaan_Saya.html">Perpustakaan Saya</a></li>
+                    <li><a href="Ulasan.html">Ulasan</a></li>
+                    <li><a href="Rekomendasi.html" class="active">Rekomendasi</a></li>
+                </ul>
+            </nav>
+            <div class="search-cart">
+                <span style="color: white;">✨ Rekomendasi</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="breadcrumb">
+        <div class="container">
+            <nav>
+                <a href="index.html">Beranda</a> > <span>Rekomendasi</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Hero Section -->
+    <section class="hero" style="padding: 2rem 0; background: linear-gradient(135deg, rgba(102,126,234,0.1) 0%, rgba(118,75,162,0.1) 100%);">
+        <div class="container">
+            <div class="hero-content">
+                <h2>✨ Rekomendasi Buku Untuk Anda</h2>
+                <p>Temukan buku-buku menarik berdasarkan minat dan bacaan Anda</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendation Categories -->
+    <section class="recommendation-categories">
+        <div class="container">
+            <div class="category-tabs">
+                <button class="tab-btn active" data-category="based-on-library">Berdasarkan Perpustakaan</button>
+                <button class="tab-btn" data-category="trending">📈 Trending</button>
+                <button class="tab-btn" data-category="classics">📖 Klasik</button>
+                <button class="tab-btn" data-category="bestseller">🏆 Best Seller</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Based on Your Library -->
+    <section class="recommendation-section" id="based-on-library">
+        <div class="container">
+            <h3 class="category-title" style="font-size: 1.8rem; color: #333; margin-bottom: 1.5rem;">
+                🎯 Berdasarkan Buku di Perpustakaan Anda
+            </h3>
+            <div class="books-grid" id="libraryRecommendations">
+                <div class="empty-state" style="grid-column: 1/-1;">
+                    <h3>📚 Tambahkan Buku ke Perpustakaan</h3>
+                    <p>Rekomendasi akan muncul berdasarkan buku yang Anda miliki</p>
+                    <a href="Cari_Buku.html" class="btn-primary" style="margin-top: 1rem;">Cari Buku</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trending Books -->
+    <section class="recommendation-section" id="trending" style="display: none; background: #f8f9fa; padding: 3rem 0;">
+        <div class="container">
+            <h3 class="category-title" style="font-size: 1.8rem; color: #333; margin-bottom: 1.5rem;">
+                📈 Buku yang Sedang Trending
+            </h3>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="recommendation-badge">Trending #1</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1698080375i/196765054.jpg" alt="Atomic Habits">
+                    <div class="book-info">
+                        <h3>Atomic Habits</h3>
+                        <p class="author">James Clear</p>
+                        <p class="genre">Self Help</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                        <p class="book-meta-info">📅 2018 | 📄 320 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="recommendation-badge">Trending #2</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1654371463i/18144590.jpg" alt="The Alchemist">
+                    <div class="book-info">
+                        <h3>The Alchemist</h3>
+                        <p class="author">Paulo Coelho</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                        <p class="book-meta-info">📅 1988 | 📄 208 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="recommendation-badge">Trending #3</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1630199330i/58784475.jpg" alt="The Psychology of Money">
+                    <div class="book-info">
+                        <h3>The Psychology of Money</h3>
+                        <p class="author">Morgan Housel</p>
+                        <p class="genre">Bisnis</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.7)</div>
+                        <p class="book-meta-info">📅 2020 | 📄 256 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1553383690i/2657.jpg" alt="To Kill a Mockingbird">
+                    <div class="book-info">
+                        <h3>To Kill a Mockingbird</h3>
+                        <p class="author">Harper Lee</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                        <p class="book-meta-info">📅 1960 | 📄 324 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1630547330i/46674.jpg" alt="Sapiens">
+                    <div class="book-info">
+                        <h3>Sapiens</h3>
+                        <p class="author">Yuval Noah Harari</p>
+                        <p class="genre">Non-Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.6)</div>
+                        <p class="book-meta-info">📅 2011 | 📄 443 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1660145660i/4929.jpg" alt="1984">
+                    <div class="book-info">
+                        <h3>1984</h3>
+                        <p class="author">George Orwell</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.7)</div>
+                        <p class="book-meta-info">📅 1949 | 📄 328 halaman</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Classics -->
+    <section class="recommendation-section" id="classics" style="display: none;">
+        <div class="container">
+            <h3 class="category-title" style="font-size: 1.8rem; color: #333; margin-bottom: 1.5rem;">
+                📖 Buku Klasik yang Wajib Dibaca
+            </h3>
+            <div class="books-grid">
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1327872146i/2767052.jpg" alt="Pride and Prejudice">
+                    <div class="book-info">
+                        <h3>Pride and Prejudice</h3>
+                        <p class="author">Jane Austen</p>
+                        <p class="genre">Romance</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                        <p class="book-meta-info">📅 1813 | 📄 432 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1546103428i/5297.jpg" alt="The Great Gatsby">
+                    <div class="book-info">
+                        <h3>The Great Gatsby</h3>
+                        <p class="author">F. Scott Fitzgerald</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐ (4.5)</div>
+                        <p class="book-meta-info">📅 1925 | 📄 180 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1566425108i/33.jpg" alt="The Lord of the Rings">
+                    <div class="book-info">
+                        <h3>The Lord of the Rings</h3>
+                        <p class="author">J.R.R. Tolkien</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                        <p class="book-meta-info">📅 1954 | 📄 1178 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1546071216i/5107.jpg" alt="Animal Farm">
+                    <div class="book-info">
+                        <h3>Animal Farm</h3>
+                        <p class="author">George Orwell</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.7)</div>
+                        <p class="book-meta-info">📅 1945 | 📄 112 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1664366697i/4981.jpg" alt="Wuthering Heights">
+                    <div class="book-info">
+                        <h3>Wuthering Heights</h3>
+                        <p class="author">Emily Brontë</p>
+                        <p class="genre">Romance</p>
+                        <div class="rating">⭐⭐⭐⭐ (4.3)</div>
+                        <p class="book-meta-info">📅 1847 | 📄 464 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1327872220i/1953.jpg" alt="The Adventures of Sherlock Holmes">
+                    <div class="book-info">
+                        <h3>Sherlock Holmes</h3>
+                        <p class="author">Arthur Conan Doyle</p>
+                        <p class="genre">Thriller</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.6)</div>
+                        <p class="book-meta-info">📅 1892 | 📄 307 halaman</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="recommendation-section" id="bestseller" style="display: none; background: #f8f9fa; padding: 3rem 0;">
+        <div class="container">
+            <h3 class="category-title" style="font-size: 1.8rem; color: #333; margin-bottom: 1.5rem;">
+                🏆 Best Seller Sepanjang Masa
+            </h3>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="bestseller-badge">Best Seller</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1474154022i/3.jpg" alt="Harry Potter">
+                    <div class="book-info">
+                        <h3>Harry Potter Series</h3>
+                        <p class="author">J.K. Rowling</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.9)</div>
+                        <p class="book-meta-info">📅 1997-2007</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="bestseller-badge">Best Seller</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1633357022i/13496.jpg" alt="A Game of Thrones">
+                    <div class="book-info">
+                        <h3>A Game of Thrones</h3>
+                        <p class="author">George R.R. Martin</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.7)</div>
+                        <p class="book-meta-info">📅 1996 | 📄 694 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="bestseller-badge">Best Seller</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1442726934i/4667024.jpg" alt="The Hunger Games">
+                    <div class="book-info">
+                        <h3>The Hunger Games</h3>
+                        <p class="author">Suzanne Collins</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.6)</div>
+                        <p class="book-meta-info">📅 2008 | 📄 374 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="bestseller-badge">Best Seller</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1566425108i/33.jpg" alt="LOTR">
+                    <div class="book-info">
+                        <h3>The Lord of the Rings</h3>
+                        <p class="author">J.R.R. Tolkien</p>
+                        <p class="genre">Fiksi</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.8)</div>
+                        <p class="book-meta-info">📅 1954 | 📄 1178 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="bestseller-badge">Best Seller</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1659086907i/58283080.jpg" alt="Verity">
+                    <div class="book-info">
+                        <h3>Verity</h3>
+                        <p class="author">Colleen Hoover</p>
+                        <p class="genre">Thriller</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.5)</div>
+                        <p class="book-meta-info">📅 2018 | 📄 336 halaman</p>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="bestseller-badge">Best Seller</div>
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1617733246i/40121378.jpg" alt="It Ends with Us">
+                    <div class="book-info">
+                        <h3>It Ends with Us</h3>
+                        <p class="author">Colleen Hoover</p>
+                        <p class="genre">Romance</p>
+                        <div class="rating">⭐⭐⭐⭐⭐ (4.4)</div>
+                        <p class="book-meta-info">📅 2016 | 📄 384 halaman</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Litopia Book Tracker</h3>
+                    <p>Aplikasi pelacak buku pribadi untuk membantu Anda mengelola dan melacak progres bacaan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Fitur</h4>
+                    <ul>
+                        <li><a href="Cari_Buku.html">Pencarian Buku</a></li>
+                        <li><a href="Perpustakaan_Saya.html">Perpustakaan Pribadi</a></li>
+                        <li><a href="Ulasan.html">Ulasan Buku</a></li>
+                        <li><a href="Rekomendasi.html">Rekomendasi</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Tentang</h4>
+                    <p>Data buku dari Google Books API</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Litopia Book Tracker. Semua hak dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching
+        document.addEventListener('DOMContentLoaded', function() {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const sections = document.querySelectorAll('.recommendation-section');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const category = this.dataset.category;
+                    sections.forEach(section => {
+                        section.style.display = section.id === category ? 'block' : 'none';
+                    });
+
+                    if (category === 'based-on-library') {
+                        loadLibraryBasedRecommendations();
+                    }
+                });
+            });
+
+            // Load initial recommendations
+            loadLibraryBasedRecommendations();
+        });
+
+        // Load recommendations based on library
+        function loadLibraryBasedRecommendations() {
+            const library = JSON.parse(localStorage.getItem('litopiaLibrary')) || [];
+            const container = document.getElementById('libraryRecommendations');
+
+            if (library.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1/-1;">
+                        <h3>📚 Tambahkan Buku ke Perpustakaan</h3>
+                        <p>Rekomendasi akan muncul berdasarkan buku yang Anda miliki</p>
+                        <a href="Cari_Buku.html" class="btn-primary" style="margin-top: 1rem;">Cari Buku</a>
+                    </div>
+                `;
+                return;
+            }
+
+            // Get most common genre
+            const genreCounts = {};
+            library.forEach(book => {
+                genreCounts[book.genre] = (genreCounts[book.genre] || 0) + 1;
+            });
+            
+            const topGenre = Object.keys(genreCounts).sort((a, b) => genreCounts[b] - genreCounts[a])[0];
+
+            container.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 2rem; background: white; border-radius: 15px; margin-bottom: 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <h4 style="color: #667eea; margin-bottom: 1rem;">📊 Analisis Preferensi Anda</h4>
+                    <p style="color: #666;">Genre favorit Anda: <strong>${topGenre}</strong></p>
+                    <p style="color: #999; margin-top: 0.5rem;">Rekomendasi berdasarkan ${library.length} buku di perpustakaan Anda</p>
+                    <a href="Cari_Buku.html?genre=${topGenre.toLowerCase()}" class="btn-primary" style="margin-top: 1rem; display: inline-block;">
+                        Cari Lebih Banyak Buku ${topGenre}
+                    </a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
